@@ -19,7 +19,7 @@ interface SidebarProps {
 const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
   const [expanded, setExpanded] = useLocalStorage<Record<string, any>>(
     storageKey,
-    {}
+    {},
   );
 
   const { organization: activeOrganization, isLoaded: isLoadedOrg } =
@@ -39,7 +39,7 @@ const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
 
       return acc;
     },
-    []
+    [],
   );
 
   const onExpand = (id: string) => {
@@ -75,7 +75,7 @@ const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
               variant: "ghost",
               size: "icon",
             }),
-            "ml-auto"
+            "ml-auto",
           )}
           href="/select-org"
         >

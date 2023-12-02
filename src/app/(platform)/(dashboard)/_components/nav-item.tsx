@@ -63,7 +63,7 @@ const NavItem = ({
     (href: string) => {
       router.push(href);
     },
-    [router]
+    [router],
   );
   return (
     <AccordionItem value={organization.id}>
@@ -71,7 +71,7 @@ const NavItem = ({
         onClick={() => onExpand(organization.id)}
         className={cn(
           "flex items-center gap-x-2 p-1.5 text-neutral-700 rounded-md hover:bg-neutral-500/10 transition text-start no-underline hover:no-underline",
-          isActive && !isExpanded && "bg-sky-500/10 text-sky-700 "
+          isActive && !isExpanded && "bg-sky-500/10 text-sky-700 ",
         )}
       >
         <div className="flex items-center gap-x-2">
@@ -94,7 +94,7 @@ const NavItem = ({
             key={route.label}
             className={cn(
               "w-full font-normal justify-start pl-10 mb-1 ",
-              pathname === route.href && "bg-sky-500/10 text-sky-700"
+              pathname === route.href && "bg-sky-500/10 text-sky-700",
             )}
             variant="ghost"
           >

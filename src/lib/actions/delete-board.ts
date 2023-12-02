@@ -10,6 +10,6 @@ export async function deleteBoard(id: number) {
   });
 
   revalidatePath(
-    "/organization/org_2YZcgtjPhXU3c9Sk1VM1C7ZVsF0?title=salman+sheriff"
+    "/organization/org_2YZcgtjPhXU3c9Sk1VM1C7ZVsF0?title=salman+sheriff",
   );
 }
