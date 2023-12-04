@@ -14,6 +14,7 @@ import FormSubmit from "./form-button";
 import { Button } from "../button";
 import { X } from "lucide-react";
 import { toast } from "../../../hooks/use-toast";
+import { FormPicker } from "./form-picker";
 
 interface FormPopoverProps {
   children: React.ReactNode;
@@ -66,6 +67,7 @@ const FormPopover: React.FC<FormPopoverProps> = ({
           </Button>
         </PopoverClose>
         <form action={onSubmit} className="space-y-4 ">
+          <FormPicker />
           <div className="space-y-4">
             <FormInput
               errors={FieldErrors}
