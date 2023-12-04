@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { ElementRef, useRef } from "react";
 import {
   Popover,
   PopoverClose,
@@ -15,6 +15,7 @@ import { Button } from "../button";
 import { X } from "lucide-react";
 import { toast } from "../../../hooks/use-toast";
 import { FormPicker } from "./form-picker";
+import { useRouter } from "next/navigation";
 
 interface FormPopoverProps {
   children: React.ReactNode;
@@ -29,16 +30,18 @@ const FormPopover: React.FC<FormPopoverProps> = ({
   align,
   sideOffset = 0,
 }) => {
+  const router = useRouter();
+  const closeRef = useRef<ElementRef<"button">>(null);
   const { execute, FieldErrors } = useAction(createBoard, {
     onSuccess: (data) => {
-      console.log(data);
       toast({
         title: "Successfully Created Board",
         variant: "success",
       });
+      closeRef.current?.click();
+      router.push(`/board/${data.id}`);
     },
     onError: (error) => {
-      console.error(error);
       toast({
         title: "Failed to Create Board",
         variant: "destructive",
@@ -48,17 +51,23 @@ const FormPopover: React.FC<FormPopoverProps> = ({
 
   const onSubmit = (formData: FormData) => {
     const title = formData.get("title") as string;
+    const image = formData.get("image") as string;
 
-    execute({ title });
+    execute({ title, image });
   };
   return (
     <Popover>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
-      <PopoverContent side={side} align={align} className="w-80 pt-3">
+      <PopoverContent
+        sideOffset={sideOffset}
+        side={side}
+        align={align}
+        className="w-80 pt-3"
+      >
         <div className="text-sm font-medium text-center text-neutral-600 pb-4">
           Create board
         </div>
-        <PopoverClose asChild>
+        <PopoverClose ref={closeRef} asChild>
           <Button
             className="h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600"
             variant="ghost"
@@ -67,7 +76,7 @@ const FormPopover: React.FC<FormPopoverProps> = ({
           </Button>
         </PopoverClose>
         <form action={onSubmit} className="space-y-4 ">
-          <FormPicker />
+          <FormPicker errors={FieldErrors} id="image" />
           <div className="space-y-4">
             <FormInput
               errors={FieldErrors}

@@ -1,12 +1,9 @@
 "use client";
-import React from "react";
-import { Button, ButtonProps, buttonVariants } from "../button";
-import { useFormStatus } from "react-dom";
-import { VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
-
-type buttonVariants = typeof buttonVariants;
+import React from "react";
+import { useFormStatus } from "react-dom";
+import { Button, ButtonProps } from "../button";
 
 interface FormSubmitProps extends React.ButtonHTMLAttributes<ButtonProps> {
   variant?:
