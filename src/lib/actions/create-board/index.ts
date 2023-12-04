@@ -32,6 +32,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
 
+  console.log(image);
+
   let board;
 
   try {
