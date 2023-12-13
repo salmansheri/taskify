@@ -12,7 +12,7 @@ export const BoardNavbar = ({ id, board }: BoardNavbarProps) => {
     <header className="w-full h-14 z-[40] bg-black/50 fixed top-14 flex items-center px-6 gap-x-4 text-white">
       <BoardTitleForm data={board} />
       <div className="ml-auto">
-        <BoardOptions id={id} />
+        <BoardOptions id={id as number} />
       </div>
     </header>
   );

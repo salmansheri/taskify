@@ -1,46 +1,54 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverClose,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { MoreHorizontal, X } from "lucide-react";
+import FormSubmit from "@/components/ui/form/form-button";
+import { useAction } from "@/hooks/use-action";
+import { toast } from "@/hooks/use-toast";
+import { deleteBoard } from "@/lib/actions/delete-board";
+import { Loader2, Trash } from "lucide-react";
 
 interface BoardOptionsProps {
   id: number;
 }
 
 export const BoardOptions = ({ id }: BoardOptionsProps) => {
+  console.log(typeof Number(id));
+  const { execute, isLoading } = useAction(deleteBoard, {
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Something went wrong!",
+        variant: "destructive",
+      });
+    },
+    onSuccess: (data) => {
+      toast({
+        variant: "success",
+        title: "Success",
+        description: "Successfully Delete the Board",
+      });
+    },
+  });
+
+  const onSubmit = () => {
+    execute({
+      id: Number(id),
+    });
+  };
+
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button className="h-auto w-auto p-2" variant="transparent">
-          <MoreHorizontal className="h-4 w-4" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="px-0 pt-3 pb-3" side="bottom" align="start">
-        <div className="text-sm font-medium text-center text-neutral-600 pb-4 ">
-          Board Actions
-        </div>
-        <PopoverClose asChild>
-          <Button
-            className="h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600"
-            variant="ghost"
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        </PopoverClose>
-        <Button
-          variant="ghost"
-          onClick={() => {}}
-          className="rounded-none w-full h-auto p-2 px-5 justify-start font-normal text-sm "
-        >
-          Delete this Board
-        </Button>
-      </PopoverContent>
-    </Popover>
+    <Button disabled={isLoading} onClick={onSubmit} variant="destructive">
+      {isLoading ? (
+        <>
+          <Loader2 className="animate-spin h-4 w-4 mr-2" />
+          Loading...
+        </>
+      ) : (
+        <>
+          <Trash className="h-5 w-5 mr-2" />
+          Delete
+        </>
+      )}
+    </Button>
   );
 };
