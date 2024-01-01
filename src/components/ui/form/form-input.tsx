@@ -60,6 +60,7 @@ export const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
             disabled={pending || disabled}
             className={cn("text-sm px-2 py-1 h-7 ", className)}
             aria-describedby={`${id}-error`}
+            defaultValue={defaultValue}
           />
         </div>
         <FormErrors id={id} errors={errors} />
