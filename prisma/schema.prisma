@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Board {
+  id               Int @id @default(autoincrement())
+  orgId            String 
+  title            String
+  imageId          String
+  imageThumbUrl    String @db.Text
+  imageFullUrl     String @db.Text
+  imageUserName    String @db.Text
+  imageLinkHTML    String @db.Text
+  lists            List[]
+
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  
+}
+
+model List {
+  id               Int @id @default(autoincrement())
+  title            String
+  order            Int
+
+  boardId          Int 
+  board            Board @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  cards Card[]
+
+  @@index([boardId])
+}
+
+model Card {
+  id Int @id @default(autoincrement())
+  title String
+  order Int
+  description String? @db.Text
+  listId Int
+  list List @relation(fields: [listId], references: [id], onDelete: Cascade)
+   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+
+  @@index([listId])
+  
+
+}
