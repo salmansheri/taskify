@@ -31,7 +31,7 @@ export default function MarketingPage() {
       <div
         className={cn(
           "flex items-center justify-center flex-col",
-          headingFont.className
+          headingFont.className,
         )}
       >
         <div className="mb-4 flex items-center border shadow-sm p-4 bg-amber-100 text-amber-700 rounded-full uppercase">
@@ -48,7 +48,7 @@ export default function MarketingPage() {
       <div
         className={cn(
           "text-sm md:text-xl text-neutral-400 mt-4 max-w-xs md:max-w-2xl text-center mx-auto",
-          textFont.className
+          textFont.className,
         )}
       >
         Collaberate, Manage Projects, and reach new productivity peaks. From
